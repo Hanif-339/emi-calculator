@@ -7,30 +7,30 @@ interface LoanType {
   id: string;
   name: string;
   interestRate: number;
-  tenure: number; // Changed from tenureMonths to tenure
+  tenure: number; 
 }
 
 interface EditingLoan {
   id: string;
   name: string;
   interestRate: number;
-  tenure: number; // Changed from tenureMonths to tenure
+  tenure: number; 
 }
 
 const EditLoanTypes: React.FC = () => {
   const router = useRouter();
   
-  // Initialize with empty array - we'll load from localStorage in useEffect
+
   const [loanTypes, setLoanTypes] = useState<LoanType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newLoanName, setNewLoanName] = useState('');
   const [newInterestRate, setNewInterestRate] = useState<number>(10.0);
-  const [newTenure, setNewTenure] = useState<number>(240); // Changed from newTenureMonths
+  const [newTenure, setNewTenure] = useState<number>(240); 
   const [editingLoan, setEditingLoan] = useState<EditingLoan | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
   const [error, setError] = useState('');
 
-  // Tenure conversion functions (similar to repayment period)
+
   const getYearsFromMonths = (months: number): string => {
     return Math.floor(months / 12).toString();
   };
@@ -39,7 +39,7 @@ const EditLoanTypes: React.FC = () => {
     return (months % 12).toString();
   };
 
-  // Handle tenure changes
+
   const handleNewTenureYearsChange = (years: string) => {
     const numYears = parseFloat(years) || 0;
     const remainderMonths = newTenure % 12;
@@ -79,13 +79,13 @@ const EditLoanTypes: React.FC = () => {
     { id: 'education-loan', name: 'Education Loan', interestRate: 7.5, tenure: 180 } // 15 years
   ];
 
-  // Migrate legacy loan type to new format
+
   const migrateLoanType = (loan: any): LoanType => {
     if (isValidLoanType(loan)) {
       return loan;
     }
 
-    // Handle both legacy formats: tenureMonths and tenure
+
     if (typeof loan === 'object' && loan.id && loan.name) {
       const defaultLoan = defaultLoanTypes.find(d => d.id === loan.id);
       return {
@@ -96,7 +96,7 @@ const EditLoanTypes: React.FC = () => {
       };
     }
 
-    // Fallback
+
     return {
       id: 'unknown-' + Date.now(),
       name: 'Unknown Loan',
@@ -151,7 +151,7 @@ const EditLoanTypes: React.FC = () => {
     setIsLoading(false);
   }, []);
 
-  // Save loan types to localStorage whenever loanTypes changes (but not on initial load)
+
   useEffect(() => {
     if (!isLoading && loanTypes.length > 0) {
       localStorage.setItem('loanTypes', JSON.stringify(loanTypes));
@@ -202,13 +202,13 @@ const EditLoanTypes: React.FC = () => {
       id: generateId(newLoanName),
       name: newLoanName.trim(),
       interestRate: newInterestRate,
-      tenure: newTenure // Changed from tenureMonths
+      tenure: newTenure 
     };
 
     setLoanTypes(prev => [...prev, newLoan]);
     setNewLoanName('');
     setNewInterestRate(10.0);
-    setNewTenure(240); // Changed from setNewTenureMonths
+    setNewTenure(240); 
     setShowAddForm(false);
     setError('');
   };
@@ -232,7 +232,7 @@ const EditLoanTypes: React.FC = () => {
       id: loan.id, 
       name: loan.name,
       interestRate: loan.interestRate,
-      tenure: loan.tenure // Changed from tenureMonths
+      tenure: loan.tenure 
     });
     setError('');
   };
@@ -252,7 +252,7 @@ const EditLoanTypes: React.FC = () => {
               ...loan, 
               name: editingLoan.name.trim(),
               interestRate: editingLoan.interestRate,
-              tenure: editingLoan.tenure // Changed from tenureMonths
+              tenure: editingLoan.tenure 
             }
           : loan
       )
@@ -273,7 +273,7 @@ const EditLoanTypes: React.FC = () => {
     setShowAddForm(false);
     setNewLoanName('');
     setNewInterestRate(10.0);
-    setNewTenure(240); // Changed from setNewTenureMonths
+    setNewTenure(240); 
     setError('');
   };
 

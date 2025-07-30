@@ -105,7 +105,7 @@ export class LoanService {
       loanType.interestRate > 0 &&
       loanType.interestRate <= 100 &&
       loanType.tenure > 0 &&
-      loanType.tenure <= 1200 // Max 100 years
+      loanType.tenure <= 1200 
     );
   }
 
