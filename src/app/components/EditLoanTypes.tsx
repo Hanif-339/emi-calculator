@@ -7,14 +7,14 @@ interface LoanType {
   id: string;
   name: string;
   interestRate: number;
-  tenure: number; // Changed from tenureMonths to tenure
+  tenure: number; 
 }
 
 interface EditingLoan {
   id: string;
   name: string;
   interestRate: number;
-  tenure: number; // Changed from tenureMonths to tenure
+  tenure: number; 
 }
 
 const EditLoanTypes: React.FC = () => {
